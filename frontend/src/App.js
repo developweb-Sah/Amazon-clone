@@ -1,4 +1,5 @@
 import React from "react";
+import Products from "./components/Products.js";
 import data from "./data.js";
 
 function App() {
@@ -6,51 +7,19 @@ function App() {
     <div className="grid-container">
       <header className="row ">
         <div>
-          <a className="brand" href="index.html">
+          <a className="brand" href="/">
             Amazon
           </a>
         </div>
         <div>
-          <a href="cart.html">Cart</a>
-          <a href="singin.html">Sign In</a>
+          <a href="/cart">Cart</a>
+          <a href="/singin">Sign In</a>
         </div>
       </header>
       <main>
         <div classNameName="row center">
           {data.products.map((products) => (
-            <div className="card">
-              <a href="product.html">
-                {/* <!-- Image size:680px by 830px --> */}
-                <img
-                  className="medium"
-                  src={products.image}
-                  alt={products.name}
-                />
-              </a>
-              <div key={products._id} className="card-body">
-                <a href={`/products/${products._id}`}>
-                  <h2>{products.name}</h2>
-                </a>
-                <div className="rating">
-                  <span>
-                    <i className="fa fa-star"></i>
-                  </span>
-                  <span>
-                    <i className="fa fa-star"></i>
-                  </span>
-                  <span>
-                    <i className="fa fa-star"></i>
-                  </span>
-                  <span>
-                    <i className="fa fa-star"></i>
-                  </span>
-                  <span>
-                    <i className="fa fa-star"></i>
-                  </span>
-                </div>
-                <div className="price">${products.price}</div>
-              </div>
-            </div>
+            <Products key={products._id} products={products} />
           ))}
         </div>
       </main>
