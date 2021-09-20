@@ -38,3 +38,16 @@
    4. Add product list code there
    5. Create ProductScreen.js
    6. Add new Route from product details to App.js
+8. Create Node.Js Server
+   1. run npm init in root folder
+   2. Update package.json set types: module
+   3. Add.js to imports
+   4. npm install express
+   5. create server.js
+   6. add start command as node backend/server.js
+   7. require express
+   8. create route for / return backend is ready
+   9. move product.js from frontend to backend
+   10. create route for /api/products
+   11. return prducts
+   12. run npm start
