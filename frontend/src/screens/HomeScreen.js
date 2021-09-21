@@ -1,45 +1,31 @@
-import React, { useEffect, useState } from "react";
-import Products from "../components/Products.js";
-// import data from "../data.js";
-import axios from "axios";
-import LoadingBox from "../components/LoadingBox.js";
-import MessageBox from "../components/MessageBox.js";
+import React, { useEffect } from "react";
 
-function HomeScreen() {
-  const [products, setProducts] = useState([]);
-  //Hook to show loading
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
+import Product from "../components/Products";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import { useDispatch, useSelector } from "react-redux";
+import { listProducts } from "../actions/productActions";
+export default function HomeScreen() {
+  const dispatch = useDispatch();
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products } = productList;
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const { data } = await axios.get("/api/products"); //array in backend will be transformed to the data in frontend
-        setLoading(false);
-        setProducts(data);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+    dispatch(listProducts());
+  }, [dispatch]);
+
   return (
     <div>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
-        <MessageBox variant="danger"> {error}</MessageBox>
+        <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <div classNameName="row center">
-          {products.map((products) => (
-            <Products key={products._id} products={products} />
+        <div className="row center">
+          {products.map((product) => (
+            <Product key={product._id} products={product}></Product>
           ))}
         </div>
       )}
     </div>
   );
 }
-
-export default HomeScreen;
